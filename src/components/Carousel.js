@@ -20,7 +20,7 @@ const profileimg = [
 
 const Carousel = () => {
   return (
-    <div className="carousel-container mx-4 md:mx-8 lg:mx-16 relative">
+    <div className="carousel-container mx-4 md:mx-8 lg:mx-16 relative mt-10">
       <Swiper
         modules={[Scrollbar, Autoplay]}
         spaceBetween={20}
@@ -33,8 +33,7 @@ const Carousel = () => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <div className="carousel-slide-content flex flex-col md:flex-row items-center justify-between p-4 md:p-8 lg:p-12 bg-gray-100 rounded-[30px] gap-4 md:gap-6 lg:gap-8">
-              {/* Textbox */}
-              <div className="carousel-textbox w-full md:w-2/3 lg:w-1/2 text-center md:text-left">
+              <div className="carousel-textbox w-full md:w-2/3 lg:w-1/2 text-left">
                 <button className="bg-gray-200 rounded-full mb-2 btn-collection px-3 py-1 md:px-4 md:py-2">
                   Trending Now
                 </button>
@@ -44,8 +43,7 @@ const Carousel = () => {
                 <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold mt-3 md:mt-5">
                   With the stars
                 </h2>
-
-                <div className="flex items-center mt-6 md:mt-10 justify-center md:justify-start">
+                <div className="flex items-center mt-6 md:mt-10 justify-start">
                   <img
                     src={profileimg[index]}
                     alt={`Profile ${index + 1}`}
@@ -59,7 +57,7 @@ const Carousel = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-6 justify-center md:justify-start">
+                <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-6 justify-start">
                   <button className="bg-black text-white font-medium py-2 px-5 md:px-6 rounded-full btn">
                     <a href="./">Buy</a>
                   </button>
@@ -68,15 +66,14 @@ const Carousel = () => {
                   </button>
                 </div>
               </div>
-
-              {/* Image */}
               <div className="w-full md:w-1/3 lg:w-1/2 flex justify-center">
                 <img
                   src={image}
                   alt={`Slide ${index + 1}`}
-                  className="rounded-xl object-cover max-w-full h-[200px] md:h-[300px] lg:h-[411px]"
+                  className="rounded-xl object-cover max-w-full h-[300px] md:h-[300px] lg:h-[411px]"
                 />
               </div>
+
             </div>
           </SwiperSlide>
         ))}

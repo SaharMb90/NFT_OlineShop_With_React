@@ -69,7 +69,7 @@ export default function Nft() {
                             </button>
                         </div>
                         <CardContent>
-                            <div className="flex justify-between items-center mb-4 mx-2 ">
+                            <div className="flex justify-between items-center mb-4  ">
                                 <Typography gutterBottom variant="h5" component="div">
                                     {card.title}
                                 </Typography>

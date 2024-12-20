@@ -6,29 +6,28 @@
 .carousel-slide-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 @media (min-width: 768px) {
   .carousel-slide-content {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
   }
 }
 
 .carousel-textbox {
-  text-align: center;
+  text-align: left; 
+  padding: 0 10px;
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
   .carousel-textbox {
-    text-align: left;
-    padding: 0 10px;
+    text-align: left; 
   }
 }
-
 .carousel-image-container {
   padding: 10%;
   overflow: hidden;
@@ -55,7 +54,7 @@
   }
 } */
 
-
+/* Specific styles for screens between 768px and 1200px */
 @media (min-width: 768px) and (max-width: 1200px) {
   .carousel-container {
     margin: 16px 32px;
@@ -82,7 +81,6 @@
   }
 }
 
-/* Swiper-specific styles */
 .swiper-container {
   position: relative;
   padding-top: 30px;
@@ -98,7 +96,6 @@
   background-color: rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
-
 .swiper-container .swiper-scrollbar .swiper-scrollbar-drag {
   background-color: #000;
   border-radius: 5px;

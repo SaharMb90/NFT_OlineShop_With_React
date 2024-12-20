@@ -39,7 +39,7 @@ const Header = () => {
         <>
             <header className="p-4 bg-white shadow-md">
                 <div className="flex flex-col items-start md:flex-row md:justify-between md:items-center">
-                  
+
                     <div className="font-extrabold">
                         <Link
                             to="/"
@@ -48,11 +48,9 @@ const Header = () => {
                             MARCKETPLACE.
                         </Link>
                     </div>
-
-                 
                     <div className="mt-4 md:mt-0">
                         <Button
-                            className="btn"
+                            className="btn-connectwallet"
                             variant="outlined"
                             size="medium"
                             color="inherit"
@@ -64,8 +62,6 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-
-          
             {isConnected && (
                 <Popover
                     id={id}
@@ -130,7 +126,6 @@ const Header = () => {
                                 You don’t own any NFTs yet
                             </Typography>
                         )}
-
                         <div className="text-center shopping-btn">
                             {!selectedNft && (
                                 <button className="bg-black text-white font-medium py-2 px-6 rounded-full btn">
