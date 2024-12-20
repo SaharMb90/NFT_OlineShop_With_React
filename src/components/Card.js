@@ -49,7 +49,7 @@ const cardData = [
 
 export default function MediaCard() {
     return (
-        <div className='font-extrabold mx-16 mb-10'>
+        <div className='font-extrabold lg:mx-10 mx-5 mb-10'>
             <p className="text-2xl text-left mt-20 mb-5">Collections</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
@@ -71,7 +71,7 @@ export default function MediaCard() {
                             </Link>
                         </div>
                         <CardContent>
-                            <div className="flex justify-between items-center mb-4 mx-2">
+                            <div className="flex justify-between items-center mb-4 ">
                                 <Typography gutterBottom variant="h5" component="div">
                                     {card.title}
                                 </Typography>

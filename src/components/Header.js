@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
@@ -13,7 +13,6 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Update selected NFT when navigating with state
     useEffect(() => {
         if (location.state && location.state.selectedNft) {
             setSelectedNft(location.state.selectedNft);
@@ -38,27 +37,35 @@ const Header = () => {
 
     return (
         <>
-            <header className="grid grid-cols-2 items-center p-4">
-                <div className="font-extrabold pl-10">
-                    
-                    <Link to="/" className="text-xl text-left no-underline text-black">
-                        MARCKETPLACE.
-                    </Link>
-                </div>
-                <div className="text-right pr-10">
-                    <Button
-                        className="btn"
-                        variant="outlined"
-                        size="medium"
-                        color="inherit"
-                        onClick={isConnected ? handleOpen : handleConnect}
-                        aria-describedby={id}
-                    >
-                        {isConnected ? "Account" : "Connect Wallet"}
-                    </Button>
+            <header className="p-4 bg-white shadow-md">
+                <div className="flex flex-col items-start md:flex-row md:justify-between md:items-center">
+                  
+                    <div className="font-extrabold">
+                        <Link
+                            to="/"
+                            className="text-2xl no-underline text-black"
+                        >
+                            MARCKETPLACE.
+                        </Link>
+                    </div>
+
+                 
+                    <div className="mt-4 md:mt-0">
+                        <Button
+                            className="btn"
+                            variant="outlined"
+                            size="medium"
+                            color="inherit"
+                            onClick={isConnected ? handleOpen : handleConnect}
+                            aria-describedby={id}
+                        >
+                            {isConnected ? "Account" : "Connect Wallet"}
+                        </Button>
+                    </div>
                 </div>
             </header>
 
+          
             {isConnected && (
                 <Popover
                     id={id}
@@ -110,7 +117,6 @@ const Header = () => {
                             Your NFTs
                         </Typography>
 
-                        {/* Display selected NFT */}
                         {selectedNft ? (
                             <div className="flex justify-center items-center mt-4">
                                 <img

@@ -2,7 +2,7 @@
     max-width: 400px;
     border-radius: 30px !important;
     
-    height: fit-content !important;
+    /* height: fit-content !important; */
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 4px 6px rgba(0.1, 0.1, 0.1, 0.1)!important;
   

@@ -48,7 +48,7 @@ export default function Nft() {
     };
 
     return (
-        <div className="font-extrabold mx-16">
+        <div className="font-extrabold sm:mx-16 mx-8">
             <p className="text-2xl text-left mt-20 mb-5">NFTs</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
@@ -69,7 +69,7 @@ export default function Nft() {
                             </button>
                         </div>
                         <CardContent>
-                            <div className="flex justify-between items-center mb-4 mx-2">
+                            <div className="flex justify-between items-center mb-4 mx-2 ">
                                 <Typography gutterBottom variant="h5" component="div">
                                     {card.title}
                                 </Typography>

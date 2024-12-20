@@ -1,3 +1,59 @@
+/* General header styles */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: white;
+}
+
+.logo-container {
+    font-extrabold: bold;
+    padding-left: 10px;
+}
+
+.logo {
+    text-align: left;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+.button-container {
+    text-align: right;
+    padding-right: 10px;
+}
+
+@media (max-width: 1200px) {
+    .header-container {
+        padding: 16px 8px;
+    }
+
+    .logo-container {
+        font-size: 1.3rem;
+    }
+
+    .button-container {
+        padding-right: 5px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-container {
+        padding-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .button-container {
+        margin-top: 10px;
+    }
+}
 
 .dropdown-content {
     padding: 16px;
@@ -7,27 +63,24 @@
     display: flex;
     flex-direction: column;
     background-color: #fff;
-   
-    
-    
-  }
-  
-  .css-1dfcyzw-MuiPaper-root-MuiPopover-paper{
+}
+
+.css-1dfcyzw-MuiPaper-root-MuiPopover-paper {
     border-radius: 20px !important;
     height: 600px !important;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .icon-button {
+}
+
+.icon-button {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
-    
 }
-.close-button{
+
+.close-button {
     background: none;
     border: none;
     padding: 0;
@@ -44,51 +97,51 @@
 }
 
 .icon-button:hover {
-    opacity: 0.8; 
+    opacity: 0.8;
 }
 
- 
-  .flex.items-center {
+.flex.items-center {
     display: flex;
     align-items: center;
-  }
-  
-  
-  img.rounded-full {
+}
+
+img.rounded-full {
     border-radius: 50%;
     width: 40px;
     height: 40px;
     margin-right: 16px;
-  }
-  
-  
-  p.text-sm {
+}
+
+p.text-sm {
     font-size: 14px;
     font-weight: 300;
-  }
-  .nfts-header{
+}
+
+.nfts-header {
     margin-bottom: 50px !important;
     margin-top: 50px !important;
     text-align: left !important;
-  }
-  .shopping-btn{
+}
+
+.shopping-btn {
     margin-bottom: 50px;
     margin-top: 30px;
-  }
-  .wallet-balance{
+}
+
+.wallet-balance {
     font-weight: bolder !important;
     margin-top: 10px;
-    
-  }
-  .nfts-description{
-color: gray;
-margin-top: 10px;
-  }
-  .nfts-header{
-    font-weight: bolder !important;
-  }
-  .title{
-    margin-top: 20px !important;
-  }
+}
 
-  
+.nfts-description {
+    color: gray;
+    margin-top: 10px;
+}
+
+.nfts-header {
+    font-weight: bolder !important;
+}
+
+.title {
+    margin-top: 20px !important;
+}
