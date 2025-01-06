@@ -1,6 +1,5 @@
 import React from 'react';
 import Nft from './Nft';
-import './collection.css';
 
 const Collection = () => {
     return (

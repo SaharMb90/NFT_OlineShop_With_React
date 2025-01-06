@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/scrollbar";
-import "./Carousel.css";
+
 
 const images = [
   "/Rectangle3.png",

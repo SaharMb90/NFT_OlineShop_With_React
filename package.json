@@ -18,7 +18,7 @@
     "web-vitals": "^4.2.4"
   },
   "scripts": {
-    "build:css": "tailwindcss build src/main.css -o dist/main.css --watch",
+    "build:css": " npx tailwindcss -i ./src/main.css -o ./dist/output.css --watch",
     "start": "react-scripts start",
     "dev": "react-scripts start",
     "build": "react-scripts build",
