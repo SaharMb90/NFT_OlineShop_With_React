@@ -2,11 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+For running the project you should use `git clone [HTTPS RUL]`command in your local directory  for cloning the last version of the project and then use  `cd [name of directory]` command and then use the  `npm i`or  `npm install` command for installing necessary dependencies and use the `npm run dev` for running the project. 
 
+## Commands for running the project:
+
+### `git clone [HTTPS RUL]`
+### `cd [name of directory]`
+### `npm i`or  `npm install`
 ### `npm run dev`
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
