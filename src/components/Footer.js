@@ -9,7 +9,7 @@ export default function Footer() {
         <>
             <footer className="grid grid-cols-2 items-center py-5 w-full footer" >
                 <div className="text-left font-extrabold  pl-10">
-                    <h2 className="text-xl">MARCKETPLACE.</h2>
+                    <h2 className="text-xl">MARKETPLACE.</h2>
                 </div>
                 <div className="text-right pr-10 flex justify-end space-x-4">
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
