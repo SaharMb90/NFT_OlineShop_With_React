@@ -7,7 +7,7 @@ For running the project you should use `git clone [HTTPS RUL]`command in your lo
 
 ## Commands for running the project:
 
-### `git clone [HTTPS RUL]`
+### `git clone [HTTPS URL]`
 ### `cd [name of directory]`
 ### `npm i`or  `npm install`
 ### `npm run dev`
