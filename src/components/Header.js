@@ -45,7 +45,7 @@ const Header = () => {
                             to="/"
                             className="text-2xl no-underline text-black"
                         >
-                            MARKETPLACE.
+                            MARKETPLACE
                         </Link>
                     </div>
                     <div className="mt-4 md:mt-0">
