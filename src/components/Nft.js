@@ -1,84 +1,44 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+import { useLang } from '../i18n';
+import { useStore } from '../store';
+import { nfts, img } from '../data';
 
-import Typography from '@mui/material/Typography';
+export function NftCard({ nft }) {
+  const { t, pick, btc } = useLang();
+  const { wallet, owned, buy, notify } = useStore();
+  const navigate = useNavigate();
+  const isOwned = owned.includes(nft.id);
 
-const cardData = [
-    {
-        image: "/image 8.png",
-        title: "Night Is Coming",
-        price: "0.14 BTC",
-    },
-    {
-        image: "/img 9.png",
-        title: "With the Star",
-        price: "0.14 BTC",
-    },
-    {
-        image: "/imag10.png",
-        title: "Summer",
-        price: "0.14 BTC",
-    },
-    {
-        image: "/image 11.png",
-        title: "Quiet",
-        price: "0.14 BTC",
-    },
-    {
-        image: "/image 12.png",
-        title: "Travel",
-        price: "0.14 BTC",
-    },
-    {
-        image: "/image 13.png",
-        title: "The Rain",
-        price: "0.14 BTC",
-    },
-];
+  const onBuy = () => {
+    if (!wallet) { navigate('/connecttowallet', { state: { pending: nft.id } }); return; }
+    const r = buy(nft);
+    if (r === 'ok') notify(t('bought', { t: pick(nft.title) }));
+    if (r === 'funds') notify(t('notEnough', { t: pick(nft.title) }));
+  };
 
-export default function Nft() {
-    const navigate = useNavigate();
+  return (
+    <article className="nft">
+      <div className="nft-img"><img src={img(nft.image)} alt={pick(nft.title)} loading="lazy" /></div>
+      <div className="nft-body">
+        <h3>{pick(nft.title)}</h3>
+        <span className="price" dir="ltr">{btc(nft.price)}</span>
+      </div>
+      <button className={'btn full ' + (isOwned ? 'btn-ghost' : 'btn-primary')} disabled={isOwned} onClick={onBuy}>
+        {isOwned ? t('owned') : t('buyFor', { p: btc(nft.price) })}
+      </button>
+    </article>
+  );
+}
 
-    const handleBuy = (nft) => {
-        navigate('/connecttowallet', { state: { selectedNft: nft } }); // Pass NFT state to the next route
-    };
-
-    return (
-        <div className="font-extrabold sm:mx-16 mx-8">
-            <p className="text-2xl text-left mt-20 mb-5">NFTs</p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
-                {cardData.map((card, index) => (
-                    <Card className="custom-card" key={index}>
-                        <div className="relative">
-                            <CardMedia
-                                className="card-media img m-5"
-                                image={card.image}
-                                title={card.title}
-                                sx={{ height: 200 }}
-                            />
-                            <button
-                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black text-normal px-4 py-2 rounded-full shadow-lg btn-buy"
-                                onClick={() => handleBuy(card)} // Pass selected card to the handleBuy function
-                            >
-                                {`Buy-->`}
-                            </button>
-                        </div>
-                        <CardContent>
-                            <div className="flex justify-between items-center mb-4  ">
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {card.title}
-                                </Typography>
-                                <Button className="btn-card">{card.price}</Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </div>
-    );
+export default function Nft({ filter, title }) {
+  const { t } = useLang();
+  const list = filter ? nfts.filter(filter) : nfts;
+  return (
+    <section className="wrap block">
+      <h2 className="h2">{title || t('allNfts')}</h2>
+      <div className="grid">
+        {list.map((n) => <NftCard nft={n} key={n.id} />)}
+      </div>
+    </section>
+  );
 }

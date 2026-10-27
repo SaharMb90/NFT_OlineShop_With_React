@@ -1,27 +1,45 @@
-import React from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLang } from '../i18n';
+import { useStore } from '../store';
+import { nfts } from '../data';
 
-const ConnectToWallet = () => {
+const WALLETS = [
+  { name: 'MetaMask', icon: '🦊' },
+  { name: 'Coinbase Wallet', icon: '🔵' },
+  { name: 'WalletConnect', icon: '🔗' },
+];
+
+export default function ConnectToWallet() {
+  const { t, pick } = useLang();
+  const { connect, buy, notify } = useStore();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const pending = state && nfts.find((n) => n.id === state.pending);
+
+  const choose = (name) => {
+    const w = connect(name);
+    if (pending) {
+      const r = buy(pending, w);
+      notify(r === 'ok' ? t('bought', { t: pick(pending.title) }) : t('notEnough', { t: pick(pending.title) }));
+      navigate('/me');
+    } else {
+      notify(t('walletConnected'));
+      navigate('/');
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen connecttowallet-bg px-4">
-      <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-        Choose The Wallet To Connect
-      </h1>
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <div className="bg-gray-100 p-6 md:p-10 rounded-lg text-center">
-          wallet1
-        </div>
-        <div className="bg-gray-100 p-6 md:p-10 rounded-lg text-center">
-          wallet2
-        </div>
-        <div className="bg-gray-100 p-6 md:p-10 rounded-lg text-center">
-          wallet3
-        </div>
-        <div className="bg-gray-100 p-6 md:p-10 rounded-lg text-center">
-          wallet4
-        </div>
+    <section className="wrap connect">
+      <h1 className="h2">{t('chooseWallet')}</h1>
+      <p className="muted">{t('chooseHint')}</p>
+      <div className="wallets">
+        {WALLETS.map((w) => (
+          <button key={w.name} className="wallet" onClick={() => choose(w.name)}>
+            <span className="wallet-icon" aria-hidden="true">{w.icon}</span>
+            <span>{w.name}</span>
+          </button>
+        ))}
       </div>
-    </div>
+    </section>
   );
-};
-
-export default ConnectToWallet;
+}

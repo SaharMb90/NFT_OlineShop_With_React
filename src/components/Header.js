@@ -1,143 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useLang } from '../i18n';
+import { useStore } from '../store';
 
+export default function Header() {
+  const { t, lang, setLang, btc, num } = useLang();
+  const { wallet, owned, disconnect } = useStore();
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+  const navigate = useNavigate();
 
-const Header = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [isConnected, setIsConnected] = useState(false);
-    const [selectedNft, setSelectedNft] = useState(null);
-    const navigate = useNavigate();
-    const location = useLocation();
+  useEffect(() => {
+    const close = (e) => { if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false); };
+    const esc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', esc); };
+  }, []);
 
-    useEffect(() => {
-        if (location.state && location.state.selectedNft) {
-            setSelectedNft(location.state.selectedNft);
-        }
-    }, [location]);
+  return (
+    <header className="top">
+      <div className="wrap top-inner">
+        <Link to="/" className="brand"><span className="mark" aria-hidden="true" />{t('brand')}</Link>
 
-    const handleOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+        <nav className="nav">
+          <NavLink to="/" end>{t('explore')}</NavLink>
+          <NavLink to="/me">{t('myNfts')}{owned.length > 0 && <span className="pill">{num(owned.length)}</span>}</NavLink>
+        </nav>
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+        <div className="actions">
+          <div className="lang" role="group" aria-label="Language">
+            <button className={lang === 'en' ? 'on' : ''} onClick={() => setLang('en')}>EN</button>
+            <button className={lang === 'fa' ? 'on' : ''} onClick={() => setLang('fa')}>فا</button>
+          </div>
 
-    const handleConnect = () => {
-        setIsConnected(true);
-        navigate("/collection");
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? "account-dropdown" : undefined;
-
-    return (
-        <>
-            <header className="p-4 bg-white shadow-md">
-                <div className="flex flex-col items-start md:flex-row md:justify-between md:items-center">
-
-                    <div className="font-extrabold">
-                        <Link
-                            to="/"
-                            className="text-2xl no-underline text-black"
-                        >
-                            MARKETPLACE
-                        </Link>
-                    </div>
-                    <div className="mt-4 md:mt-0">
-                        <Button
-                            className="btn-connectwallet"
-                            variant="outlined"
-                            size="medium"
-                            color="inherit"
-                            onClick={isConnected ? handleOpen : handleConnect}
-                            aria-describedby={id}
-                        >
-                            {isConnected ? "Account" : "Connect Wallet"}
-                        </Button>
-                    </div>
+          {wallet ? (
+            <div className="acct" ref={menuRef}>
+              <button className="btn btn-ghost" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+                <img src="/Rectangle10.png" alt="" className="avatar" />
+                <span className="addr" dir="ltr">{wallet.address}</span>
+              </button>
+              {open && (
+                <div className="menu" role="menu">
+                  <p className="muted small">{t('inWallet')}</p>
+                  <p className="bal">{btc(wallet.balance)}</p>
+                  <p className="muted small" dir="ltr">{wallet.name} · {wallet.address}</p>
+                  <button className="btn btn-primary full" onClick={() => { setOpen(false); navigate('/me'); }}>{t('myNfts')}</button>
+                  <button className="btn btn-ghost full" onClick={() => { setOpen(false); disconnect(); }}>{t('disconnect')}</button>
                 </div>
-            </header>
-            {isConnected && (
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "center",
-                    }}
-                    transformOrigin={{
-                        vertical: "top",
-                        horizontal: "center",
-                    }}
-                >
-                    <div className="dropdown-content">
-                        <div className="flex items-center mb-4 mt-2">
-                            <img
-                                src="/Ellipse 431.png"
-                                alt="Profile"
-                                className="rounded-full w-10 h-10 mr-4"
-                            />
-                            <div className="flex items-center">
-                                <p className="text-sm font-extralight mr-2">STV6Q...4Z7WD</p>
-                                <button
-                                    className="icon-button"
-                                    onClick={() => console.log("Icon button clicked!")}
-                                    aria-label="Vector Button"
-                                >
-                                    <img src="/Vector.png" alt="Action" />
-                                </button>
-                                <button
-                                    className="close-button"
-                                    onClick={handleClose}
-                                    aria-label="Close Button"
-                                >
-                                    <img src="/Subtract.png" alt="Close" />
-                                </button>
-                            </div>
-                        </div>
-                        <Typography variant="caption" align="left" className="title">
-                            In your wallet
-                        </Typography>
-                        <Typography variant="h6" align="left" className="wallet-balance">
-                            0.129 BTC
-                        </Typography>
-                        <Divider />
-                        <Typography variant="h6" align="center" className="nfts-header">
-                            Your NFTs
-                        </Typography>
-
-                        {selectedNft ? (
-                            <div className="flex justify-center items-center mt-4">
-                                <img
-                                    src={selectedNft.image}
-                                    alt={selectedNft.title}
-                                    className="rounded-lg max-w-[150px] h-[150px]"
-                                />
-                            </div>
-                        ) : (
-                            <Typography align="center" className="nfts-description">
-                                You don’t own any NFTs yet
-                            </Typography>
-                        )}
-                        <div className="text-center shopping-btn">
-                            {!selectedNft && (
-                                <button className="bg-black text-white font-medium py-2 px-6 rounded-full btn">
-                                    Start shopping
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </Popover>
-            )}
-        </>
-    );
-};
-
-export default Header;
+              )}
+            </div>
+          ) : (
+            <button className="btn btn-primary" onClick={() => navigate('/connecttowallet')}>{t('connect')}</button>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
